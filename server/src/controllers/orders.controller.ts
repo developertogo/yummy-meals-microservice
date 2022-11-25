@@ -129,6 +129,26 @@ export class OrdersController {
     return data1;
   }
 
+/*
+  @get('/api/v1/oa-orders')
+  @response(200, {
+    description: 'Array of Orders model instances',
+    content: {
+      'application/json': {
+        schema: {
+          type: 'array',
+          items: getModelSchemaRef(Orders, {includeRelations: true}),
+        },
+      },
+    },
+  })
+  async find(
+    @param.filter(Orders) filter?: Filter<Orders>,
+  ): Promise<Orders[]> {
+    return this.ordersRepository.find(filter);
+  }
+*/
+
   @patch('/api/v1/orders')
   @response(200, {
     description: 'Orders PATCH success count',

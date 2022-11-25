@@ -5,12 +5,17 @@ import {
   RestExplorerComponent,
 } from '@loopback/rest-explorer';
 import {RepositoryMixin} from '@loopback/repository';
-import {RestApplication} from '@loopback/rest';
+import {RestApplication, Router} from '@loopback/rest';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
 import {MySequence} from './sequence';
 
 export {ApplicationConfig};
+
+import {requestHandler} from './request-handler';
+
+const router = Router();
+router.get('/api/v1/orders', requestHandler);
 
 export class YummyMealsApplication extends BootMixin(
   ServiceMixin(RepositoryMixin(RestApplication)),
@@ -29,6 +34,8 @@ export class YummyMealsApplication extends BootMixin(
       path: '/explorer',
     });
     this.component(RestExplorerComponent);
+
+    this.expressMiddleware('middleware.express.greeting', router);
 
     this.projectRoot = __dirname;
     // Customize @loopback/boot Booter Conventions here

@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasMany} from '@loopback/repository';
+import {Orders} from './orders.model';
 
 @model({settings: {idInjection: false, mysql: {schema: 'yummy', table: 'users'}}})
 export class Users extends Entity {
@@ -38,6 +39,8 @@ export class Users extends Entity {
   })
   phone?: string;
 
+  @hasMany(() => Orders, {keyTo: 'userId'})
+  orders: Orders[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

@@ -23,7 +23,6 @@ export class Orders extends Entity {
     generated: 0,
     mysql: {columnName: 'user_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N', generated: 0},
   })
-  //@belongsTo(() => Users)
   userId: number;
 
   @property({
@@ -32,7 +31,7 @@ export class Orders extends Entity {
     generated: 0,
     mysql: {columnName: 'delivery_date', dataType: 'timestamp', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'N', generated: 0},
   })
-  deliveryDate: string;
+  delivery_date: string;
 
   @hasMany(() => Meals, {through: {model: () => OrderAttributes, keyFrom: 'orderId', keyTo: 'mealId'}})
   meals: Meals[];

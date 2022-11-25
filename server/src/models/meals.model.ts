@@ -34,7 +34,7 @@ export class Meals extends Entity {
     generated: 0,
     mysql: {columnName: 'image_url', dataType: 'varchar', dataLength: 255, dataPrecision: null, dataScale: null, nullable: 'Y', generated: 0},
   })
-  imageUrl?: string;
+  image_url?: string;
 
   // Define well-known properties here
 

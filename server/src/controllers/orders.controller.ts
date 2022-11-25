@@ -16,6 +16,7 @@ import {
   del,
   requestBody,
   response,
+  JsonBodyParser,
 } from '@loopback/rest';
 import {Orders} from '../models';
 import {OrdersRepository} from '../repositories';
@@ -58,6 +59,42 @@ export class OrdersController {
     return this.ordersRepository.count(where);
   }
 
+  constructFilter() : any {
+    let filter = {
+      "offset": 0,
+      "limit": 100,
+      "skip": 0,
+      "order": "id",
+      "where": {
+        "userId": 1
+      },
+      "fields": {
+        "id": true,
+        "userId": false,
+        "delivery_date": true
+      },
+      "include": [
+        {
+          "relation": "meals",
+          "scope": {
+            "offset": 0,
+            "limit": 100,
+            "skip": 0,
+            "order": "id",
+            "where": {
+            },
+            "fields": {},
+            "include": [
+            ]
+          }
+        },
+        "orderAttributes"
+      ]
+    };
+
+    return filter;
+  }
+
   @get('/api/v1/orders')
   @response(200, {
     description: 'Array of Orders model instances',
@@ -71,9 +108,25 @@ export class OrdersController {
     },
   })
   async find(
-    @param.filter(Orders) filter?: Filter<Orders>,
+    f = this.constructFilter()
+    //@param.filter(Orders) filter?: Filter<Orders>,
   ): Promise<Orders[]> {
-    return this.ordersRepository.find(filter);
+    /*
+    let data = this.ordersRepository.find(filter);
+    let orders = {};
+    return data;
+    */
+    return this.formatResponse(await this.ordersRepository.find(f))
+  }
+
+  formatResponse(orders : Orders[]) : any {
+    let data1 : any = {}
+    let data2 = <JSON>data1
+    let data = orders;
+
+    data1["orders"] = data;
+
+    return data1;
   }
 
   @patch('/api/v1/orders')

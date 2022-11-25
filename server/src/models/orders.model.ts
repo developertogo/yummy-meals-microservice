@@ -36,6 +36,9 @@ export class Orders extends Entity {
 
   @hasMany(() => Meals, {through: {model: () => OrderAttributes, keyFrom: 'orderId', keyTo: 'mealId'}})
   meals: Meals[];
+
+  @hasMany(() => OrderAttributes, {keyTo: 'orderId'})
+  orderAttributes: OrderAttributes[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

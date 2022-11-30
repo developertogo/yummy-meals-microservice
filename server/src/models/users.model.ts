@@ -39,7 +39,7 @@ export class Users extends Entity {
   })
   phone?: string;
 
-  @hasMany(() => Orders, {keyTo: 'userId'})
+  @hasMany(() => Orders, {keyTo: 'user_id'})
   orders: Orders[];
   // Define well-known properties here
 

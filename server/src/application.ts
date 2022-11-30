@@ -15,7 +15,7 @@ export {ApplicationConfig};
 import {requestHandler} from './request-handler';
 
 const router = Router();
-router.get('/api/v1/orders', requestHandler);
+router.get('/api/v1/wip-orders', requestHandler);
 
 export class YummyMealsApplication extends BootMixin(
   ServiceMixin(RepositoryMixin(RestApplication)),

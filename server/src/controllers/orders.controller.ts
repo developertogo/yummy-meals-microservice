@@ -16,7 +16,7 @@ import {
   del,
   requestBody,
   response,
-  JsonBodyParser,
+  HttpErrors,
 } from '@loopback/rest';
 import {Orders} from '../models';
 import {OrdersRepository} from '../repositories';
@@ -59,38 +59,36 @@ export class OrdersController {
     return this.ordersRepository.count(where);
   }
 
-  constructFilter() : any {
+//"delivery_date": "2018-06-15T07:00:00.000Z",
+
+  private constructFilter(user_id: number, delivery_date: string, sort: string, direction: string, page: number, per: number) : any {
+    if (page > 0) {
+      page -= 1;
+    }
+
     let filter = {
-      "offset": 0,
-      "limit": 100,
-      "skip": 0,
-      "order": "id",
+      "offset": page * per,
+      "limit": per,
+      "order": `${sort} ${direction}`,
       "where": {
-        "userId": 1
+        "user_id": user_id,
       },
       "fields": {
         "id": true,
-        "userId": false,
-        "delivery_date": true
+        "user_id": true,
+        "delivery_date": true,
       },
       "include": [
-        {
-          "relation": "meals",
-          "scope": {
-            "offset": 0,
-            "limit": 100,
-            "skip": 0,
-            "order": "id",
-            "where": {
-            },
-            "fields": {},
-            "include": [
-            ]
-          }
-        },
-        "orderAttributes"
+        "meals"
       ]
-    };
+    }
+
+    let tmp = filter as unknown;
+
+    if (delivery_date != '') {
+       tmp = { ...filter, where: { user_id: user_id, delivery_date: delivery_date }}
+       return tmp;
+    }
 
     return filter;
   }
@@ -108,46 +106,38 @@ export class OrdersController {
     },
   })
   async find(
-    f = this.constructFilter()
-    //@param.filter(Orders) filter?: Filter<Orders>,
+    @param.query.number('user_id') user_id = 0,
+    @param.query.string('delivery_date') delivery_date = '',
+    @param.query.string('sort') sort = 'id',
+    @param.query.string('direction') direction = 'asc',
+    @param.query.number('page') page = 0,
+    @param.query.number('per') per = 4,
+    // TODO: For future use
+    @param.filter(Orders) filter?: Filter<Orders>,
   ): Promise<Orders[]> {
-    /*
-    let data = this.ordersRepository.find(filter);
-    let orders = {};
-    return data;
-    */
-    return this.formatResponse(await this.ordersRepository.find(f))
+    // throw an error when the user_id param is not a natural number
+    if (!Number.isInteger(user_id) || user_id < 1) {
+      throw new HttpErrors.UnprocessableEntity('User Id is Required');
+    }
+    filter = this.constructFilter(user_id, delivery_date, sort, direction, page, per);
+    return this.formatResponse(await this.ordersRepository.find(filter))
+    // TODO: For future use
+    //return this.ordersRepository.find(filter);
   }
 
   formatResponse(orders : Orders[]) : any {
-    let data1 : any = {}
-    let data2 = <JSON>data1
-    let data = orders;
+    let res : any = {}
 
-    data1["orders"] = data;
-
-    return data1;
-  }
-
+    //let count = orders.meals;
 /*
-  @get('/api/v1/oa-orders')
-  @response(200, {
-    description: 'Array of Orders model instances',
-    content: {
-      'application/json': {
-        schema: {
-          type: 'array',
-          items: getModelSchemaRef(Orders, {includeRelations: true}),
-        },
-      },
-    },
-  })
-  async find(
-    @param.filter(Orders) filter?: Filter<Orders>,
-  ): Promise<Orders[]> {
-    return this.ordersRepository.find(filter);
-  }
+    if (delivery_date != '') {
+      tmp = { ...filter, where: { user_id: user_id, delivery_date: delivery_date }}
+      return tmp;
+   }
 */
+    res["orders"] = orders;
+    return res;
+  }
 
   @patch('/api/v1/orders')
   @response(200, {

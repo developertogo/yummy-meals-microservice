@@ -61,7 +61,7 @@ export class UsersOrdersController {
           schema: getModelSchemaRef(Orders, {
             title: 'NewOrdersInUsers',
             exclude: ['id'],
-            optional: ['userId']
+            optional: ['user_id']
           }),
         },
       },

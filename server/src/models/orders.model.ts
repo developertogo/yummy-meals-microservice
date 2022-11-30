@@ -23,7 +23,7 @@ export class Orders extends Entity {
     generated: 0,
     mysql: {columnName: 'user_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N', generated: 0},
   })
-  userId: number;
+  user_id: number;
 
   @property({
     type: 'date',
@@ -50,7 +50,7 @@ export class Orders extends Entity {
 }
 
 export interface OrdersRelations {
-  //userId?: OrdersWithRelations;
+  // describe navigational properties here
 }
 
 export type OrdersWithRelations = Orders & OrdersRelations;

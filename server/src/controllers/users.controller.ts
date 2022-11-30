@@ -71,9 +71,12 @@ export class UsersController {
     },
   })
   async find(
-    @param.filter(Users) filter?: Filter<Users>,
+    // TODO: For future use
+    //@param.filter(Users) filter?: Filter<Users>,
   ): Promise<Users[]> {
-    return this.usersRepository.find(filter);
+    return this.usersRepository.find();
+    // TODO: For future use
+    //return this.usersRepository.find(filter);
   }
 
   @patch('/api/v1/users')

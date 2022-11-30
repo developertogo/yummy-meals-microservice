@@ -185,7 +185,23 @@ RSpec.describe "api/v1/orders resouces" do
           response = http.get "#{BASE_URL}/api/v1/orders"
           expect(response.status).to eq(HTTP_UNPROCESSABLE)
           json = JSON.parse(response.body)
-          expect(json['errors']).to eq(['User Id is Required'])
+
+          # LoopBack 4 uses http-errors (https://www.npmjs.com/package/http-errors)
+          # Reference: https://loopback.io/doc/en/lb4/Controller.html#handling-errors-in-controllers
+          #
+          # raise response.body outputs:
+          #   { "error": {
+          #       "statusCode": 422,
+          #             "name": "UnprocessableEntityError",
+          #          "message": "User Id is Required"
+          #       }
+          #   }
+          #
+          # before:
+          #   expect(json['errors']).to eq(['User Id is Required'])
+          # after:
+          # modified above test to comfirm to `http-errors` npm response format:
+          expect(json['error']['message']).to eq('User Id is Required')
         end
       end
     end

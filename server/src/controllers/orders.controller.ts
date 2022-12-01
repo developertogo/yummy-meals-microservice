@@ -20,6 +20,7 @@ import {
 } from '@loopback/rest';
 import {Orders} from '../models';
 import {OrdersRepository} from '../repositories';
+import _ from 'lodash';
 
 export class OrdersController {
   constructor(
@@ -79,7 +80,8 @@ export class OrdersController {
         "delivery_date": true,
       },
       "include": [
-        "meals"
+        "meals",
+        "orderAttributes"
       ]
     }
 
@@ -127,15 +129,17 @@ export class OrdersController {
 
   formatResponse(orders : Orders[]) : any {
     let res : any = {}
+    let orders_with_quantity : any = [];
 
-    //let count = orders.meals;
-/*
-    if (delivery_date != '') {
-      tmp = { ...filter, where: { user_id: user_id, delivery_date: delivery_date }}
-      return tmp;
-   }
-*/
-    res["orders"] = orders;
+    _.each(orders, (order, i) => {
+      orders_with_quantity[i] = _.pick(order, ['id', 'delivery_date'])
+      orders_with_quantity[i]['meal_count'] = order.meals.length
+      let details = _.map(order.orderAttributes, obj => _.pick(obj, ['mealId', 'quantity']))
+      let meal = _.merge(_.keyBy(order.meals, 'id'), _.keyBy(details, 'mealId'));
+      orders_with_quantity[i]['meals'] = _.map(meal, obj => _.pick(obj, ['id', 'quantity', 'name', 'description', 'image_url']))
+    })
+
+    res["orders"] = orders_with_quantity;
     return res;
   }
 

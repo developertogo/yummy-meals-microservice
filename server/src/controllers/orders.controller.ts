@@ -115,13 +115,13 @@ export class OrdersController {
     @param.query.number('page') page = 0,
     @param.query.number('per') per = 4,
     // TODO: For future use
-    @param.filter(Orders) filter?: Filter<Orders>,
+    //@param.filter(Orders) filter?: Filter<Orders>,
   ): Promise<Orders[]> {
     // throw an error when the user_id param is not a natural number
     if (!Number.isInteger(user_id) || user_id < 1) {
       throw new HttpErrors.UnprocessableEntity('User Id is Required');
     }
-    filter = this.constructFilter(user_id, delivery_date, sort, direction, page, per);
+    let filter = this.constructFilter(user_id, delivery_date, sort, direction, page, per);
     return this.formatResponse(await this.ordersRepository.find(filter))
     // TODO: For future use
     //return this.ordersRepository.find(filter);
@@ -129,10 +129,12 @@ export class OrdersController {
 
   formatResponse(orders : Orders[]) : any {
     let res : any = {}
-    let orders_with_quantity : any = [];
+    let orders_with_quantity : any = []
 
     _.each(orders, (order, i) => {
       orders_with_quantity[i] = _.pick(order, ['id', 'delivery_date'])
+      let delivery_date = new Date(orders_with_quantity[i]['delivery_date'])
+      orders_with_quantity[i]['delivery_date'] = delivery_date.toISOString().split('T')[0];
       orders_with_quantity[i]['meal_count'] = order.meals.length
       let details = _.map(order.orderAttributes, obj => _.pick(obj, ['mealId', 'quantity']))
       let meal = _.merge(_.keyBy(order.meals, 'id'), _.keyBy(details, 'mealId'));

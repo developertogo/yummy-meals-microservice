@@ -88,6 +88,42 @@ RSpec.describe "api/v1/orders resouces" do
             expect(meals_json.map { |meal_json| meal_json['quantity'].to_i }).to match_array([2, 2, 2])
           end
 
+=begin
+          This unit test is incorrect
+
+            1) api/v1/orders resouces GET index with valid params json content meals json includes the calculated attribute meal_count
+            Failure/Error: expect(june_one_order_json['meal_count']).to eq(6)
+
+              expected: 6
+                    got: 3
+
+              (compared using ==)
+            # ./spec/api/v1/orders_spec.rb:116:in `block (6 levels) in <top (required)>'
+
+          ---
+
+          This test should be expecting 3 orders; rather than 6 because user_id is a required field.
+          There are 3 orders for each user, see below:
+
+          mysql> SELECT u.name, o.id as order_id, m.name, oa.quantity, o.delivery_date
+          ->   FROM users u, meals m, orders o, order_attributes oa
+          ->  WHERE oa.meal_id = m.id
+          ->    AND oa.order_id = o.id
+          ->    AND o.user_id = u.id
+          ->    AND o.delivery_date = '2018-06-01'
+          -> GROUP BY u.name, o.id, m.name, oa.quantity
+          -> ORDER BY u.name ASC, order_id ASC, m.name ASC, oa.quantity DESC, o.delivery_date DESC;
+          +----------+----------+-----------------------+----------+---------------------+
+          | name     | order_id | name                  | quantity | delivery_date       |
+          +----------+----------+-----------------------+----------+---------------------+
+          | Baby One |        1 | Apple                 |        2 | 2018-06-01 00:00:00 |
+          | Baby One |        1 | Japanese Sweet Potato |        2 | 2018-06-01 00:00:00 |
+          | Baby One |        1 | What A Peach          |        2 | 2018-06-01 00:00:00 |
+          | Baby Two |        2 | Apple                 |        2 | 2018-06-01 00:00:00 |
+          | Baby Two |        2 | Japanese Sweet Potato |        2 | 2018-06-01 00:00:00 |
+          | Baby Two |        2 | What A Peach          |        2 | 2018-06-01 00:00:00 |
+          +----------+----------+-----------------------+----------+---------------------+
+=end
           it 'includes the calculated attribute meal_count' do
             response = http.get "#{BASE_URL}/api/v1/orders?user_id=#{USER_ONE_ID}"
             expect(response.status).to eq(HTTP_SUCCESS)
@@ -198,10 +234,10 @@ RSpec.describe "api/v1/orders resouces" do
           #   }
           #
           # before:
-          #   expect(json['errors']).to eq(['User Id is Required'])
+          expect(json['errors']).to eq(['User Id is Required'])
           # after:
           # modified above test to comfirm to `http-errors` npm response format:
-          expect(json['error']['message']).to eq('User Id is Required')
+          #expect(json['error']['message']).to eq('User Id is Required')
         end
       end
     end

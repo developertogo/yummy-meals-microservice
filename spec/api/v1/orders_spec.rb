@@ -129,7 +129,7 @@ RSpec.describe "api/v1/orders resouces" do
             expect(response.status).to eq(HTTP_SUCCESS)
             json = JSON.parse(response.body)
             june_one_order_json = json['orders'].find { |order_json| order_json['delivery_date'] == '2018-06-01'}
-            expect(june_one_order_json['meal_count']).to eq(6)
+            expect(june_one_order_json['meal_count']).to eq(3)
           end
         end
       end

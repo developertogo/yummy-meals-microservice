@@ -23,6 +23,12 @@ Solution
 * The Frontend [[here](https://github.com/developertogo/yummy-meals-order)] was implemented using `React`, `TypeScript`, and [Refine](https://github.com/refinedev/refine) UI Framework.
 * The Backend [[this repo](https://github.com/developertogo/yummy-meals-microservice)] was implemented using `NodeJS`, `TypeScript`, and [LoopBack 4](https://github.com/loopbackio/loopback-next) Microservice Framework.
 
+### Prerequisite
+
+1. Install `mysql`
+2. Install `nodejs`, version `18.10` or above
+3. Run `npm instal` from checkout dir
+
 ### Usage - How to run it
 
 1. `cd server`
@@ -48,7 +54,9 @@ Server is running at http://[::1]:4000
 Try http://[::1]:4000/ping
 ```
 
-## Run unit test to verify everything is fine
+## Run unit test to verify everything is working fine
+
+Note: run `bundle exec rspec` from the root repo, e.g. _<path_to>/yummy-meals-microservice_.
 
 ![Unit Test Output](https://github.com/developertogo/yummy-meals-microservice/blob/master/assets/rspec-test-run.jpg)
 
@@ -64,19 +72,19 @@ Assignment Instruction Details
 1. Read the rest of this README and review `spec/api/v1/orders_spec.rb` to understand the endpoint requirements
 2. Create your sample application, using the database dump `yummy-dump.sql`
 3. Perform the following one time setup steps to get the spec runner working
-    - Navigate to the project root
-    - Modify `spec/config.rb` if necessary
-    - Install ruby if necessary
-    - Install the `bundler` gem if necessary
-    - Run `bundle install`
-    - Make sure your application server is running
+    * Navigate to the project root
+    * Modify `spec/config.rb` if necessary
+    * Install ruby if necessary
+    * Install the `bundler` gem if necessary
+    * Run `bundle install`
+    * Make sure your application server is running
 4. Run `bundle exec rspec` until specs pass
 5. Create a view to display the orders for a user
-    - Each order should show:
-      - the delivery date
-      - the meal names
-      - the meal images
-      - the quantity of each meal
+    * Each order should show:
+      * the delivery date
+      * the meal names
+      * the meal images
+      * the quantity of each meal
 
 What we're looking for
 ----------------------
@@ -105,10 +113,10 @@ The Database and Schema
 
 The sample database provided consists of four tables:
 
-- users
-- orders
-- order_attributes
-- meals
+* users
+* orders
+* order_attributes
+* meals
 
 A user has no association columns.
 

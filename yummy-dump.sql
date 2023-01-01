@@ -45,7 +45,7 @@ CREATE TABLE `meals` (
 
 LOCK TABLES `meals` WRITE;
 /*!40000 ALTER TABLE `meals` DISABLE KEYS */;
-INSERT INTO `meals` VALUES (1,'Apple','Yummy apple','https://email.helloyumi.com/assets/0561.png'),(2,'Japanese Sweet Potato','Yummy tummy','https://email.helloyumi.com/assets/0901.png'),(3,'What A Peach','Yummy peach','https://email.helloyumi.com/assets/0478.png');
+INSERT INTO `meals` VALUES (1,'Apple','Yummy apple','https://loremflickr.com/g/260/300/apple,meal/all'),(2,'Japanese Sweet Potato','Yummy tummy','https://loremflickr.com/g/260/300/potato,meal/all'),(3,'What A Peach','Yummy peach','https://loremflickr.com/g/260/300/steak,meal/all');
 /*!40000 ALTER TABLE `meals` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -129,7 +129,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Baby One','yummy@helloyumi.com','5555555555'),(2,'Baby Two','tummy@helloyumi.com','5555555555');
+INSERT INTO `users` VALUES (1,'User One','user.one@gmail.com','4151234567'),(2,'User Two','user.two@gmail.com','4157654321');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

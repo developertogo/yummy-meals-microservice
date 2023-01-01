@@ -25,9 +25,9 @@ Solution
 
 ### Usage - How to run it
 
-1. cd server
-2. export PORT=4000
-3. npm start
+1. `cd server`
+2. `export PORT=`**4000**
+3. `npm start`
 
 ```
 # Your terminal will show:
@@ -48,12 +48,13 @@ Server is running at http://[::1]:4000
 Try http://[::1]:4000/ping
 ```
 
-### Run unit test to verify everything is fine
+## Run unit test to verify everything is fine
 
+![Unit Test Output](https://github.com/developertogo/yummy-meals-microservice/blob/master/assets/rspec-test-run.jpg)
 
+## Go to http://localhost:4000/explorer to display the Swagger Restful API
 
-### Go to http://localhost:4000/explorer to display the Swagger Restful API
-
+![Swagger REST API Documentation](https://github.com/developertogo/yummy-meals-microservice/blob/master/assets/yummy-meal-swagger.jpg)
 
 ***
 

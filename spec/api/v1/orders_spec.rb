@@ -35,21 +35,21 @@ RSpec.describe "api/v1/orders resouces" do
         #           "quantity": 2,
         #           "name": "Apple",
         #           "description": "Yummy apple",
-        #           "image_url": "https://helloyumi.com/img/products/sku/0561.png"
+        #           "image_url": "https://loremflickr.com/g/260/300/food,meal/all"
         #         },
         #         {
         #           "id": 2,
         #           "quantity": 2,
         #           "name": "Japanese Sweet Potato",
         #           "description": "Yummy tummy",
-        #           "image_url": "https://helloyumi.com/img/products/sku/0901.png"
+        #           "image_url": "https://loremflickr.com/g/260/300/food,meal/all"
         #         },
         #         {
         #           "id": 3,
         #           "quantity": 2,
         #           "name": "What A Peach",
         #           "description": "Yummy peach",
-        #           "image_url": "https://helloyumi.com/img/products/sku/0478.png"
+        #           "image_url": "https://loremflickr.com/g/260/300/food,meal/all"
         #         },
         #       ]
         #     },
@@ -116,12 +116,12 @@ RSpec.describe "api/v1/orders resouces" do
           +----------+----------+-----------------------+----------+---------------------+
           | name     | order_id | name                  | quantity | delivery_date       |
           +----------+----------+-----------------------+----------+---------------------+
-          | Baby One |        1 | Apple                 |        2 | 2018-06-01 00:00:00 |
-          | Baby One |        1 | Japanese Sweet Potato |        2 | 2018-06-01 00:00:00 |
-          | Baby One |        1 | What A Peach          |        2 | 2018-06-01 00:00:00 |
-          | Baby Two |        2 | Apple                 |        2 | 2018-06-01 00:00:00 |
-          | Baby Two |        2 | Japanese Sweet Potato |        2 | 2018-06-01 00:00:00 |
-          | Baby Two |        2 | What A Peach          |        2 | 2018-06-01 00:00:00 |
+          | User One |        1 | Apple                 |        2 | 2018-06-01 00:00:00 |
+          | User One |        1 | Japanese Sweet Potato |        2 | 2018-06-01 00:00:00 |
+          | User One |        1 | What A Peach          |        2 | 2018-06-01 00:00:00 |
+          | User Two |        2 | Apple                 |        2 | 2018-06-01 00:00:00 |
+          | User Two |        2 | Japanese Sweet Potato |        2 | 2018-06-01 00:00:00 |
+          | User Two |        2 | What A Peach          |        2 | 2018-06-01 00:00:00 |
           +----------+----------+-----------------------+----------+---------------------+
 =end
           it 'includes the calculated attribute meal_count' do

@@ -23,10 +23,42 @@ Solution
 * The Frontend [[here](https://github.com/developertogo/yummy-meals-order)] was implemented using `React`, `TypeScript`, and [Refine](https://github.com/refinedev/refine) UI Framework.
 * The Backend [[this repo](https://github.com/developertogo/yummy-meals-microservice)] was implemented using `NodeJS`, `TypeScript`, and [LoopBack 4](https://github.com/loopbackio/loopback-next) Microservice Framework.
 
+### Usage - How to run it
+
+1. cd server
+2. export PORT=4000
+3. npm start
+
+```
+# Your terminal will show:
+
+> yummy-meals@0.0.1 prestart
+> yarn run rebuild
+
+yarn run v1.22.19
+$ yarn run clean && yarn run build
+$ lb-clean dist *.tsbuildinfo .eslintcache
+$ lb-tsc
+✨  Done in 3.92s.
+
+> yummy-meals@0.0.1 start
+> node -r source-map-support/register .
+
+Server is running at http://[::1]:4000
+Try http://[::1]:4000/ping
+```
+
+### Run unit test to verify everything is fine
+
+
+
+### Go to http://localhost:4000/explorer to display the Swagger Restful API
+
+
 ***
 
-Instructions
-------------
+Assignment Instruction Details
+------------------------------
 
 1. Read the rest of this README and review `spec/api/v1/orders_spec.rb` to understand the endpoint requirements
 2. Create your sample application, using the database dump `yummy-dump.sql`

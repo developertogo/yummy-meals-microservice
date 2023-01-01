@@ -1,19 +1,35 @@
-yummy-test
-=============
+Yummy Meals Order Service
+=========================
 
-**yummy-test** is a take home interview project for Yumi Engineering.
+## Objective
 
-Given a database with already seeded tables and data, please create a database-backed web application server that responds to a URL and returns json. More specifically, your web server will respond to the `GET index` endpoint `/api/v1/orders` and return data according to the specification as described in `api/v1/orders_spec.rb`
+### Backend
 
+Given a database with already seeded tables and data, please create a database-backed web application server that responds to a URL and returns json. More specifically, your web server will respond to the `GET index` endpoint `/api/v1/orders` and return data according to the specification as described in `spec/api/v1/orders_spec.rb`
+
+### Frontend
 Then, create a view for the user's orders that displays the key parts of an order. Your view can take any form that you'd like. Feel free to be creative!
 
+[For the source, see: [Yummy Meals Order List with React](https://github.com/developertogo/yummy-meals-order) repo]
+
+### Tech Stack
 This project is designed to be language and framework agnostic. Your web server can be written in Python with Django/Flask, Javascript with Node+Express, or something more exotic. The tests are written in rspec+Ruby, but should be very readable even if you don't know any Ruby: All they do is ping a URL and inspect the json response.
+
+***
+
+Solution
+========
+
+* The Frontend [[here](https://github.com/developertogo/yummy-meals-order)] was implemented using `React`, `TypeScript`, and [Refine](https://github.com/refinedev/refine) UI Framework.
+* The Backend [[this repo](https://github.com/developertogo/yummy-meals-microservice)] was implemented using `NodeJS`, `TypeScript`, and [LoopBack 4](https://github.com/loopbackio/loopback-next) Microservice Framework.
+
+***
 
 Instructions
 ------------
 
-1. Read the rest of this README and review `api/v1/orders_spec.rb` to understand the endpoint requirements
-2. Create your sample application, using the database dump `yummy_development`
+1. Read the rest of this README and review `spec/api/v1/orders_spec.rb` to understand the endpoint requirements
+2. Create your sample application, using the database dump `yummy-dump.sql`
 3. Perform the following one time setup steps to get the spec runner working
     - Navigate to the project root
     - Modify `spec/config.rb` if necessary
@@ -36,12 +52,13 @@ We'd like you to strike a balance between maintainability and speed, with a mild
 
 Don't worry too much about where it falls in the spectrum though; it's more important that when we talk about your code that you recognize the tradeoffs you made and what you can cut/add if asked to move in either direction.
 
-In particular, if there's a (well respected) library or framework that you would like to use as part of your implementation, please use it. We're here to make working software that helps get yummy food to families, not to reimplement bcrypt.
+In particular, if there's a (well respected) library or framework that you would like to use as part of your implementation, please use it. We're here to make working software that helps get `Yummy Meals` food to families, not to re-implement bcrypt.
 
 The rspec test
 --------------
 
-After resetting the database, the [rspec test](https://github.com/helloyumi/yummy-test/blob/master/spec/api/v1/orders_spec.rb) pings `GET /api/v1/orders` with various parameters and examines the json response. The spec can be split out five sections:
+After resetting the database, the `rspec test` pings `GET /api/v1/orders` with various parameters and examines the json response. The spec can be split out five sections:
+
 - Examining the contents of the json for a single record
 - Sorting
 - Filtering
@@ -54,6 +71,7 @@ The Database and Schema
 -----------------------
 
 The sample database provided consists of four tables:
+
 - users
 - orders
 - order_attributes
@@ -68,7 +86,7 @@ Orders have a `user_id` (belong to a user).
 The order_attributes table is a join table that connects orders and meals through the ```order_id``` and ```meal_id``` columns.
 
 ```
-yummy_development=# \d+ users
+yummy=# \d+ users
 Table "public.users"
    Column   |            Type
 ------------+-----------------------------
@@ -77,7 +95,7 @@ Table "public.users"
  email      | character varying
  phone      | character varying
 
-yummy_development=# \d+ orders
+yummy=# \d+ orders
 Table "public.orders"
               Column               |            Type
 -----------------------------------+-----------------------------
@@ -85,7 +103,7 @@ Table "public.orders"
  user_id                           | integer
  delivery_date                     | timestamp without time zone
 
-yummy_development=# \d+ order_attributes
+yummy=# \d+ order_attributes
 Table "public.order_attributes"
    Column    |            Type
 -------------+-----------------------------
@@ -94,7 +112,7 @@ Table "public.order_attributes"
  order_id    | integer
  quantity    | integer
 
-yummy_development=# \d+ meals
+yummy=# \d+ meals
 Table "public.meals"
    Column    |            Type
 -------------+-----------------------------

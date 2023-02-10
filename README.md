@@ -21,7 +21,7 @@ Solution
 ========
 
 * The Frontend [[here](https://github.com/developertogo/yummy-meals-order)] was implemented using `React`, `TypeScript`, and [Refine](https://github.com/refinedev/refine) UI Framework.
-* The Backend [[this repo](https://github.com/developertogo/yummy-meals-microservice)] was implemented using `NodeJS`, `TypeScript`, and [LoopBack 4](https://github.com/loopbackio/loopback-next) Microservice Framework.
+* The Backend [[this repo](https://github.com/developertogo/yummy-meals-microservice)] was implemented using `NodeJS`, `TypeScript`, and [LoopBack 4](https://github.com/loopbackio/loopback-next) Microservice Framework. You may find the server code under the [server](https://github.com/developertogo/yummy-meals-microservice/tree/master/serverf) folder.
 
 ### Prerequisite
 
